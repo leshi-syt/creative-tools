@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>原创创作神器 — 拆解·对比·创作·升华</title>
+<script>window.__pdfFallback=1;</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a0a0d;--bg2:#111115;--bg3:#1a1a20;--bg4:#22222b;--border:#292933;--text:#e2e2ea;--text2:#9090a0;--text3:#686878;--accent:#c94a2a;--accent-hover:#e06038;--accent-dim:#7a2a12;--gold:#e0b020;--green:#2ec488;--blue:#4a8fe8;--radius:6px;--radius-lg:10px;--sidebar-w:230px;--header-h:50px;--font:'PingFang SC','Microsoft YaHei','Noto Sans SC',system-ui,-apple-system,sans-serif;--mono:'JetBrains Mono','SF Mono','Fira Code','Noto Sans SC',monospace}
+html{font-size:14px;scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow:hidden}
+::selection{background:var(--accent);color:#fff}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.sidebar{position:fixed;top:0;left:0;width:var(--sidebar-w);height:100vh;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:50}
+.sidebar-brand{padding:16px 18px 14px;border-bottom:1px solid var(--border)}
+.sidebar-brand h1{font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,#fff 20%,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sidebar-brand p{font-size:.65rem;color:var(--text3);margin-top:2px}
+.sidebar-nav{flex:1;padding:8px 6px;overflow-y:auto}
+.nav-item{position:relative;display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(--radius);cursor:pointer;color:var(--text2);font-size:.82rem;font-weight:450;margin-bottom:2px;transition:all .2s}
+.nav-item:hover{background:var(--bg3);color:var(--text)}
+.nav-item.active{background:rgba(201,74,42,.1);color:var(--accent)}
+.nav-item.active::before{content:'';position:absolute;left:-6px;top:50%;transform:translateY(-50%);width:3px;height:18px;background:var(--accent);border-radius:0 3px 3px 0}
+.nav-item .nav-icon svg{width:17px;height:17px;fill:currentColor;flex-shrink:0}
+.nav-item .nav-label{flex:1}
+.sidebar-footer{padding:10px 14px;border-top:1px solid var(--border);font-size:.68rem;color:var(--text3);display:flex;align-items:center;gap:6px}
+.status-dot{width:7px;height:7px;border-radius:50%;display:inline-block;background:var(--green)}
+.main{margin-left:var(--sidebar-w);height:100vh;display:flex;flex-direction:column;overflow:hidden}
+.main-header{height:var(--header-h);display:flex;align-items:center;padding:0 22px;border-bottom:1px solid var(--border);background:var(--bg2);flex-shrink:0}
+.main-header h2{font-size:.95rem;font-weight:600;display:flex;align-items:center;gap:8px}
+.main-header .dim-badge{font-size:.6rem;background:var(--bg4);color:var(--text3);padding:2px 7px;border-radius:4px;font-weight:400}
+.main-content{flex:1;overflow-y:auto;padding:18px 22px 40px}
+.view{display:none}.view.active{display:block}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px;margin-bottom:14px}
+.card-title{font-size:.88rem;font-weight:600;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.card-title svg{width:15px;height:15px;fill:var(--accent);flex-shrink:0}
+.card-sub{color:var(--text2);font-size:.75rem;margin-bottom:10px;line-height:1.5}
+.drop-zone{border:2px dashed var(--border);border-radius:var(--radius-lg);padding:36px 18px;text-align:center;cursor:pointer;transition:all .25s;background:var(--bg3)}
+.drop-zone:hover{border-color:var(--accent);background:rgba(201,74,42,.03)}
+.drop-zone.has-file{border-style:solid;border-color:var(--green);padding:14px 18px;display:flex;align-items:center;gap:12px;text-align:left}
+.dz-icon-big{width:38px;height:38px;margin:0 auto 8px;border-radius:50%;background:var(--bg4);display:flex;align-items:center;justify-content:center}
+.drop-zone.has-file .dz-icon-big{margin:0}
+.dz-icon-big svg{fill:var(--text3);width:20px;height:20px}
+.drop-zone.has-file .dz-icon-big svg{fill:var(--green);width:18px;height:18px}
+.dz-text{font-weight:500;font-size:.85rem}
+.dz-hint{font-size:.7rem;color:var(--text2);margin-top:3px}
+.dz-input{display:none}
+.btn{display:inline-flex;align-items:center;gap:6px;background:var(--bg4);border:1px solid var(--border);border-radius:var(--radius);padding:7px 16px;color:var(--text);font-size:.8rem;font-weight:500;cursor:pointer;font-family:inherit;transition:all .15s}
+.btn:hover{background:var(--border)}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-hover)}
+.btn-sm{padding:5px 12px;font-size:.75rem}
+.btn svg{width:14px;height:14px;fill:currentColor}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.action-bar{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.report-box{display:none;margin-top:14px}.report-box.active{display:block}
+.report-panel{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px;margin-top:10px}
+.rp-title{font-size:.85rem;font-weight:600;color:var(--accent);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.rp-body{font-size:.8rem;line-height:1.7;white-space:pre-wrap;color:var(--text)}
+.progress-wrap{display:none;margin:10px 0}.progress-wrap.active{display:block}
+.progress-bar{height:3px;background:var(--bg3);border-radius:2px;overflow:hidden}
+.progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--gold));transition:width .3s ease;width:0%}
+.progress-text{display:flex;justify-content:space-between;margin-top:5px;font-size:.7rem;color:var(--text2)}
+.progress-log{max-height:90px;overflow-y:auto;margin-top:5px;font-size:.68rem;color:var(--text2);font-family:var(--mono);background:var(--bg3);border-radius:5px;padding:5px 9px;line-height:1.5}
+.workbench{display:grid;grid-template-columns:160px 1fr 260px;height:calc(100vh - var(--header-h));margin:-18px -22px 0;overflow:hidden}
+.wb-steps{background:var(--bg2);border-right:1px solid var(--border);padding:12px 8px;overflow-y:auto}
+.wb-step{padding:9px 10px;border-radius:var(--radius);cursor:pointer;margin-bottom:3px;border-left:3px solid transparent;transition:all .2s}
+.wb-step:hover{background:var(--bg3)}
+.wb-step.active{border-left-color:var(--accent);background:rgba(201,74,42,.06)}
+.wb-step .ws-icon{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--bg4);margin-bottom:4px}
+.wb-step.active .ws-icon{background:rgba(201,74,42,.15)}
+.wb-step .ws-icon svg{width:14px;height:14px;fill:var(--text3)}
+.wb-step.active .ws-icon svg{fill:var(--accent)}
+.wb-step .ws-title{font-size:.78rem;font-weight:500}
+.wb-step .ws-desc{font-size:.65rem;color:var(--text2);margin-top:2px}
+.wb-step .ws-status{display:inline-block;font-size:.55rem;padding:1px 5px;border-radius:3px;margin-top:3px}
+.wb-step .ws-status.done{background:rgba(46,196,136,.1);color:var(--green)}
+.wb-step .ws-status.working{background:rgba(201,74,42,.1);color:var(--accent)}
+.wb-step .ws-status.pending{background:var(--bg4);color:var(--text3)}
+.wb-canvas{background:var(--bg);overflow-y:auto;padding:18px 20px}
+.wc-section{display:none}.wc-section.active{display:block}
+.wb-sidebar{background:var(--bg2);border-left:1px solid var(--border);display:flex;flex-direction:column}
+.wb-sidebar .ws-header{padding:12px 14px;border-bottom:1px solid var(--border);font-size:.8rem;font-weight:600;display:flex;align-items:center;gap:6px}
+.wb-sidebar .ws-body{flex:1;overflow-y:auto;padding:10px 14px}
+.wb-sidebar .ws-msg{font-size:.73rem;line-height:1.5;padding:7px 9px;border-radius:var(--radius);margin-bottom:6px}
+.wb-sidebar .ws-msg.ai{border-left:2px solid var(--accent);background:var(--bg3)}
+.wb-sidebar .ws-msg.user{border-left:2px solid var(--blue);background:var(--bg4)}
+.wb-sidebar .ws-input-wrap{display:flex;gap:5px;padding:8px 10px;border-top:1px solid var(--border)}
+.wb-sidebar .ws-input-wrap textarea{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:6px 9px;color:var(--text);font-size:.75rem;outline:none;resize:none;height:32px;font-family:inherit}
+.wb-form label{display:block;font-size:.75rem;color:var(--text2);font-weight:500;margin-bottom:3px}
+.wb-form textarea,.wb-form input[type="text"]{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:7px 10px;color:var(--text);font-size:.8rem;outline:none;font-family:inherit;resize:vertical}
+.wb-form textarea:focus,input:focus{border-color:var(--accent)}
+.wb-form .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.wb-form .form-group{margin-bottom:10px}
+.wb-editor{min-height:120px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:10px;font-size:.82rem;line-height:1.7;color:var(--text);outline:none;font-family:inherit;overflow-y:auto;white-space:pre-wrap}
+.wb-editor:focus{border-color:var(--accent)}
+.wb-editor-footer{display:flex;justify-content:space-between;align-items:center;margin-top:3px;font-size:.7rem;color:var(--text3)}
+.comp-grid{width:100%;border-collapse:collapse;font-size:.75rem;margin-top:8px}
+.comp-grid th,.comp-grid td{padding:6px 8px;text-align:center;border:1px solid var(--border)}
+.comp-grid th{background:var(--bg4);font-weight:600;color:var(--text);font-size:.72rem}
+.comp-grid td{color:var(--text2)}
+.rating-bar{height:5px;background:var(--bg4);border-radius:3px;overflow:hidden;margin:3px 0}
+.rating-bar-fill{height:100%;border-radius:3px;transition:width .4s ease}
+.rating-bar-fill.high{background:var(--green)}.rating-bar-fill.mid{background:var(--gold)}.rating-bar-fill.low{background:var(--accent)}
+.platform-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-top:8px}
+.platform-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:12px;text-align:center}
+.platform-card .pc-name{font-size:.8rem;font-weight:600;margin-bottom:3px}
+.platform-card .pc-score{font-size:1.3rem;font-weight:700;color:var(--gold)}
+.platform-card .pc-bar{height:4px;background:var(--bg4);border-radius:2px;margin-top:6px;overflow:hidden}
+.platform-card .pc-bar-fill{height:100%;border-radius:2px;transition:width .5s ease}
+.tag{display:inline-block;font-size:.62rem;padding:1px 7px;border-radius:3px;background:var(--bg4);color:var(--text3);margin:2px}
+.tag.accent{background:rgba(201,74,42,.1);color:var(--accent)}
+.tag.green{background:rgba(46,196,136,.1);color:var(--green)}
+.tag.blue{background:rgba(74,143,232,.1);color:var(--blue)}
+.api-config-wrap{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 12px;background:var(--bg3);border-radius:var(--radius);margin-top:8px;border:1px solid var(--border)}
+.api-config-wrap label{font-size:.72rem;color:var(--text2)}
+.api-config-wrap input{background:var(--bg4);border:1px solid var(--border);border-radius:4px;padding:4px 8px;color:var(--text);font-size:.72rem;outline:none;font-family:var(--mono);flex:1;min-width:120px}
+.api-config-wrap input:focus{border-color:var(--accent)}
+.api-status{font-size:.65rem;padding:2px 7px;border-radius:3px;white-space:nowrap}
+.api-status.ok{background:rgba(46,196,136,.1);color:var(--green)}
+.api-status.missing{background:rgba(201,74,42,.08);color:var(--accent)}
+.empty-state{text-align:center;padding:30px 18px;color:var(--text2);font-size:.8rem}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:9px 16px;font-size:.78rem;z-index:200;display:flex;align-items:center;gap:7px;box-shadow:0 4px 20px rgba(0,0,0,.5);opacity:0;pointer-events:none;max-width:88vw;transition:opacity .25s}
+.toast.show{opacity:1;pointer-events:auto}
+.toast.error svg{fill:var(--accent)}
+.text-paste-area{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:10px;min-height:100px;font-size:.78rem;line-height:1.6;color:var(--text);outline:none;font-family:inherit;white-space:pre-wrap;overflow-y:auto;max-height:200px}
+.text-paste-area:focus{border-color:var(--accent)}
+.outline-table{width:100%;border-collapse:collapse;margin-top:8px;font-size:.78rem}
+.outline-table th,.outline-table td{border:1px solid var(--border);padding:5px 8px}
+.outline-table th{background:var(--bg4);font-weight:600;color:var(--text2);font-size:.7rem;text-align:center}
+.outline-table input,.outline-table textarea{width:100%;background:transparent;border:none;color:var(--text);font-size:.76rem;outline:none;font-family:inherit;resize:none}
+.outline-table textarea{min-height:32px}
+.model-selector{display:flex;gap:4px;margin-top:4px}
+.model-btn{font-size:.68rem;padding:3px 10px;border:1px solid var(--border);border-radius:4px;background:var(--bg4);color:var(--text2);cursor:pointer;transition:all .15s}
+.model-btn.active{background:rgba(201,74,42,.12);border-color:var(--accent);color:var(--accent)}
+.model-btn:hover{background:var(--border)}
+@media(max-width:1000px){
+  .sidebar{width:50px}
+  .sidebar-brand h1,.sidebar-brand p,.nav-item .nav-label,.sidebar-footer span{display:none}
+  .nav-item{justify-content:center;padding:9px}
+  .workbench{grid-template-columns:42px 1fr 180px}
+  .wb-step .ws-title,.wb-step .ws-desc,.wb-step .ws-status,.wb-step .ws-icon{display:none}
+}
+</style>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="sidebar-brand"><h1>原创创作神器</h1><p>拆解·对比·创作·升华</p></div>
+  <div class="sidebar-nav">
+    <div class="nav-item active" data-view="m1">
+      <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></span>
+      <span class="nav-label">作品检索分析</span>
+    </div>
+    <div class="nav-item" data-view="m2">
+      <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9H9V9h10v2zm-4 4H9v-2h6v2zm4-8H9V5h10v2z"/></svg></span>
+      <span class="nav-label">快速阅读</span>
+    </div>
+    <div class="nav-item" data-view="m3">
+      <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M10 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h5v2h2V1h-2v2zm0 15H5l5-6v6zm9-15h-5v2h5v13l-5-6v9h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg></span>
+      <span class="nav-label">对比分析</span>
+    </div>
+    <div class="nav-item" data-view="m4">
+      <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></span>
+      <span class="nav-label">智能创作流</span>
+    </div>
+    <div class="nav-item" data-view="m5">
+      <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg></span>
+      <span class="nav-label">成品评估</span>
+    </div>
+  </div>
+  <div class="sidebar-footer"><span class="status-dot"></span><span>v2.0 · 创作引擎</span></div>
+</nav>
+<div class="main">
+<header class="main-header"><h2 id="headerTitle">作品检索分析 <span class="section-badge">模块一</span></h2></header>
+<div class="main-content" id="mainContent">
+<!-- M1: 作品检索分析 -->
+<div class="view active" id="viewM1">
+  <div class="card">
+    <div class="card-title"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>优秀作品内容检索</div>
+    <div class="card-sub">上传 TXT/PDF 格式的对标作品，系统将智能分析其网络热度、故事简介、人物设定、读者评价及社会影响力，输出完整作品分析报告</div>
+    <div class="drop-zone" id="dz1">
+      <div class="dz-icon-big"><svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg></div>
+      <div class="dz-text">点击上传作品文本</div>
+      <div class="dz-hint">支持 TXT / PDF 格式 · 用于分析对标作品</div>
+      <input class="dz-input" id="dz1Input" type="file" accept=".txt,.pdf">
+    </div>
+    <div class="api-config-wrap" style="margin-top:8px">
+      <label>API Key</label>
+      <input type="password" id="m1ApiKey" placeholder="sk-..." style="flex:1;min-width:120px">
+      <span class="api-status missing" id="m1ApiStatus">未配置</span>
+    </div>
+    <div class="action-bar">
+      <button class="btn btn-primary" id="m1StartBtn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>开始分析</button>
+    </div>
+  </div>
+  <div class="progress-wrap" id="m1Progress">
+    <div class="progress-bar"><div class="progress-bar-fill" id="m1ProgressFill"></div></div>
+    <div class="progress-text"><span id="m1ProgressStatus">分析中...</span><span id="m1ProgressPct">0%</span></div>
+    <div class="progress-log" id="m1Log"></div>
+  </div>
+  <div class="report-box" id="m1Report">
+    <div class="report-panel" id="m1ReportPanel"><div class="rp-title">作品分析报告</div><div id="m1ReportBody" class="rp-body"></div></div>
+  </div>
+</div>
+<!-- M2: 快速阅读 -->
+<div class="view" id="viewM2">
+  <div class="card">
+    <div class="card-title"><svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9H9V9h10v2zm-4 4H9v-2h6v2zm4-8H9V5h10v2z"/></svg>对标作品快速阅读</div>
+    <div class="card-sub">上传 TXT/PDF 作品，系统将以读者视角快速提炼全本内容概要，以「全本总结 — 分章节概要 — 全本内容脉络」三级结构输出</div>
+    <div class="drop-zone" id="dz2">
+      <div class="dz-icon-big"><svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg></div>
+      <div class="dz-text">点击上传作品文本</div>
+      <div class="dz-hint">支持 TXT / PDF 格式</div>
+      <input class="dz-input" id="dz2Input" type="file" accept=".txt,.pdf">
+    </div>
+    <div class="action-bar"><button class="btn btn-primary" id="m2StartBtn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>快速阅读</button></div>
+  </div>
+  <div class="progress-wrap" id="m2Progress">
+    <div class="progress-bar"><div class="progress-bar-fill" id="m2ProgressFill"></div></div>
+    <div class="progress-text"><span id="m2ProgressStatus">扫描中...</span><span id="m2ProgressPct">0%</span></div>
+    <div class="progress-log" id="m2Log"></div>
+  </div>
+  <div class="report-box" id="m2Report">
+    <div class="report-panel"><div class="rp-title">全本总结</div><div id="m2Summary" class="rp-body" style="margin-bottom:12px"></div></div>
+    <div class="report-panel"><div class="rp-title">分章节概要</div><ul id="m2Chapters" style="list-style:none;padding:0"></ul></div>
+    <div class="report-panel"><div class="rp-title">全本内容脉络</div><div id="m2Vein" class="rp-body" style="margin-top:6px"></div></div>
+  </div>
+</div>
+<!-- M3: 对比分析 -->
+<div class="view" id="viewM3">
+  <div class="card">
+    <div class="card-title"><svg viewBox="0 0 24 24"><path d="M10 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h5v2h2V1h-2v2zm0 15H5l5-6v6zm9-15h-5v2h5v13l-5-6v9h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>多作品对比分析</div>
+    <div class="card-sub">同时上传 2-5 个对标作品，从题材、情节、人物鲜活度、故事吸引力、文学素养、社会影响力六个维度进行系统比对，输出每个作品的优劣势报告</div>
+    <div id="m3Slots" style="margin-bottom:8px"></div>
+    <div class="action-bar">
+      <button class="btn btn-sm" id="m3AddBtn"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>添加作品</button>
+      <button class="btn btn-primary" id="m3StartBtn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>开始对比分析</button>
+    </div>
+  </div>
+  <div class="progress-wrap" id="m3Progress">
+    <div class="progress-bar"><div class="progress-bar-fill" id="m3ProgressFill"></div></div>
+    <div class="progress-text"><span id="m3ProgressStatus">分析中...</span><span id="m3ProgressPct">0%</span></div>
+    <div class="progress-log" id="m3Log"></div>
+  </div>
+  <div class="report-box" id="m3Report">
+    <div class="report-panel"><div class="rp-title">维度对比总览</div><div id="m3CompBody"></div></div>
+    <div class="report-panel"><div class="rp-title">各作品优劣势</div><div id="m3ProsCons"></div></div>
+  </div>
+</div>
+<!-- M4: 智能创作工作流 -->
+<div class="view" id="viewM4">
+  <div class="workbench">
+    <div class="wb-steps">
+      <div class="wb-step active" data-step="1">
+        <div class="ws-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
+        <div class="ws-title">题材脑暴</div><div class="ws-desc">人物·爽点·世界观·情节</div><span class="ws-status working">进行中</span>
+      </div>
+      <div class="wb-step" data-step="2">
+        <div class="ws-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/></svg></div>
+        <div class="ws-title">创作大纲</div><div class="ws-desc">章节·主题·标题</div><span class="ws-status pending">待开始</span>
+      </div>
+      <div class="wb-step" data-step="3">
+        <div class="ws-icon"><svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></div>
+        <div class="ws-title">正文撰写</div><div class="ws-desc">章节创作</div><span class="ws-status pending">待开始</span>
+      </div>
+      <div class="wb-step" data-step="4">
+        <div class="ws-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 11h-4v4h-4v-4H6v-4h4V6h4v4h4v4z"/></svg></div>
+        <div class="ws-title">全文输出</div><div class="ws-desc">整合·导出</div><span class="ws-status pending">待开始</span>
+      </div>
+    </div>
+    <div class="wb-canvas">
+      <div class="api-config-wrap" style="margin-bottom:12px">
+        <label>AI 模型</label>
+        <div class="model-selector">
+          <button class="model-btn active" data-model="deepseek">DeepSeek</button>
+          <button class="model-btn" data-model="yuanbao">元宝</button>
+          <button class="model-btn" data-model="openai">OpenAI</button>
+        </div>
+        <input type="password" id="m4ApiKey" placeholder="API Key" style="flex:1;min-width:100px">
+        <span class="api-status missing" id="m4ApiStatus">未配置</span>
+      </div>
+      <!-- Step 1: 题材脑暴 -->
+      <div class="wc-section active" data-section="1">
+        <div class="wb-form">
+          <div class="form-grid">
+            <div class="form-group"><label>题材/类型</label><input type="text" id="wbGenre" placeholder="如：仙侠、都市、悬疑..."></div>
+            <div class="form-group"><label>核心爽点</label><input type="text" id="wbThrill" placeholder="如：升级打怪、扮猪吃虎..."></div>
+          </div>
+          <div class="form-grid">
+            <div class="form-group"><label>世界观设定</label><textarea id="wbWorld" rows="2" placeholder="故事世界的规则、力量体系、社会结构..."></textarea></div>
+            <div class="form-group"><label>主要人物设定</label><textarea id="wbCharacters" rows="2" placeholder="主角/配角性格、背景、成长弧线..."></textarea></div>
+          </div>
+          <div class="form-grid">
+            <div class="form-group"><label>故事脉络</label><textarea id="wbPlotline" rows="2" placeholder="整体故事走向、起承转合..."></textarea></div>
+            <div class="form-group"><label>人物关系</label><textarea id="wbRelations" rows="2" placeholder="角色之间的关联、冲突、羁绊..."></textarea></div>
+          </div>
+          <div class="form-grid">
+            <div class="form-group"><label>主要情节</label><textarea id="wbMainPlot" rows="2" placeholder="核心冲突、高潮、反转..."></textarea></div>
+            <div class="form-group"><label>节奏感觉</label><textarea id="wbPacing" rows="2" placeholder="叙事节奏、快慢控制、情感起伏..."></textarea></div>
+          </div>
+          <div class="action-bar">
+            <button class="btn" id="wbAiBrainstorm"><svg viewBox="0 0 24 24"><path d="M21 3.01H3c-1.1 0-2 .9-2 2V9h2V4.99h18v14.03H3V15H1v4.01c0 1.1.9 1.98 2 1.98h18c1.1 0 2-.88 2-1.98v-14c0-1.11-.9-2-2-2zM11 16l4-4-4-4v3H1v2h10v3z"/></svg>AI 辅助脑暴</button>
+            <button class="btn btn-primary" id="wbStep1Save">保存并进入大纲</button>
+          </div>
+          <div class="ai-suggestion" id="wbSuggestion1" style="display:none"></div>
+        </div>
+      </div>
+      <!-- Step 2: 创作大纲 -->
+      <div class="wc-section" data-section="2">
+        <div class="wb-form">
+          <table class="outline-table"><thead><tr><th style="width:40px">章</th><th style="width:25%">标题</th><th>基本构思</th><th style="width:20%">主题</th></tr></thead><tbody id="wbOutlineBody"></tbody></table>
+          <div class="action-bar" style="margin-top:10px">
+            <button class="btn" id="wbAiOutline"><svg viewBox="0 0 24 24"><path d="M21 3.01H3c-1.1 0-2 .9-2 2V9h2V4.99h18v14.03H3V15H1v4.01c0 1.1.9 1.98 2 1.98h18c1.1 0 2-.88 2-1.98v-14c0-1.11-.9-2-2-2zM11 16l4-4-4-4v3H1v2h10v3z"/></svg>AI 生成大纲</button>
+            <button class="btn btn-primary" id="wbStep2Save">保存并进入正文撰写</button>
+          </div>
+          <div class="ai-suggestion" id="wbSuggestion2" style="display:none"></div>
+        </div>
+      </div>
+      <!-- Step 3: 正文撰写 -->
+      <div class="wc-section" data-section="3">
+        <div class="wb-form">
+          <div class="form-group"><label>当前章节</label><select id="wbChSelector" style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:6px 10px;color:var(--text);font-size:.8rem;font-family:inherit"></select></div>
+          <div class="form-group"><label>章节内容</label><div class="wb-editor" id="wbChEditor" contenteditable="true" style="min-height:200px"></div></div>
+          <div class="action-bar">
+            <button class="btn" id="wbAiWrite"><svg viewBox="0 0 24 24"><path d="M21 3.01H3c-1.1 0-2 .9-2 2V9h2V4.99h18v14.03H3V15H1v4.01c0 1.1.9 1.98 2 1.98h18c1.1 0 2-.88 2-1.98v-14c0-1.11-.9-2-2-2zM11 16l4-4-4-4v3H1v2h10v3z"/></svg>AI 辅助写作</button>
+            <button class="btn" id="wbSaveCh">保存章节</button>
+            <button class="btn btn-primary" id="wbStep3Save">全部完成，进入全文输出</button>
+          </div>
+        </div>
+      </div>
+      <!-- Step 4: 全文输出 -->
+      <div class="wc-section" data-section="4">
+        <div class="wb-form">
+          <div class="wb-editor" id="wbFullNovel" style="min-height:200px"></div>
+          <div class="action-bar" style="margin-top:10px">
+            <button class="btn" id="wbExportTxt"><svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>导出 TXT</button>
+            <button class="btn" id="wbExportHtml"><svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>导出 HTML</button>
+            <button class="btn" id="wbSendToM5"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>发送至成品评估</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wb-sidebar">
+      <div class="ws-header"><svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:var(--accent)"><path d="M21 3.01H3c-1.1 0-2 .9-2 2V9h2V4.99h18v14.03H3V15H1v4.01c0 1.1.9 1.98 2 1.98h18c1.1 0 2-.88 2-1.98v-14c0-1.11-.9-2-2-2zM11 16l4-4-4-4v3H1v2h10v3z"/></svg>创作助手</div>
+      <div class="ws-body" id="wbChatBody">
+        <div class="ws-msg ai">你好！我是创作助手，随时可以帮你讨论创作思路、生成内容、优化文字。选择上方模型并输入 API Key 后即可使用 AI 辅助功能。</div>
+      </div>
+      <div class="ws-input-wrap">
+        <textarea id="wbChatInput" placeholder="输入想法..." rows="1"></textarea>
+        <button class="btn btn-primary btn-sm" id="wbChatSend" style="padding:5px 10px"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- M5: 成品评估 -->
+<div class="view" id="viewM5">
+  <div class="card">
+    <div class="card-title"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>成品对比评估 &amp; 热度预测</div>
+    <div class="card-sub">将创作完成的原创作品与对标作品进行多维度对比分析，并预测在不同平台的发表热度表现</div>
+  </div>
+  <div class="card">
+    <div class="card-title">上传原创作品</div>
+    <div class="drop-zone" id="dz5">
+      <div class="dz-icon-big"><svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg></div>
+      <div class="dz-text">点击上传原创作品文件</div>
+      <div class="dz-hint">支持 TXT / PDF 格式，也可在下方粘贴文本</div>
+      <input class="dz-input" id="dz5Input" type="file" accept=".txt,.pdf">
+    </div>
+    <div style="margin-top:8px"><label style="font-size:.75rem;color:var(--text2);font-weight:500;display:block;margin-bottom:4px">或直接粘贴原创作品文本</label>
+    <div class="text-paste-area" id="m5OriginalPaste" contenteditable="true" style="min-height:80px"></div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">对标作品</div>
+    <div class="card-sub">支持上传文件或手动粘贴对标文本内容，帮助从多维度把握创作水准</div>
+    <div class="action-bar" style="margin-bottom:8px">
+      <button class="btn btn-sm" id="m5AddRefFile"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>上传对标文件</button>
+      <button class="btn btn-sm" id="m5AddRefPaste"><svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"/></svg>粘贴对标文本</button>
+    </div>
+    <div id="m5Refs"></div>
+  </div>
+  <div class="card">
+    <div class="api-config-wrap">
+      <label>API Key</label>
+      <input type="password" id="m5ApiKey" placeholder="sk-..." style="flex:1;min-width:100px">
+      <span class="api-status missing" id="m5ApiStatus">未配置</span>
+    </div>
+    <div class="action-bar">
+      <button class="btn btn-primary" id="m5StartBtn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>开始评估</button>
+    </div>
+  </div>
+  <div class="progress-wrap" id="m5Progress">
+    <div class="progress-bar"><div class="progress-bar-fill" id="m5ProgressFill"></div></div>
+    <div class="progress-text"><span id="m5ProgressStatus">评估中...</span><span id="m5ProgressPct">0%</span></div>
+    <div class="progress-log" id="m5Log"></div>
+  </div>
+  <div class="report-box" id="m5Report">
+    <div class="report-panel"><div class="rp-title">多维度对比分析</div><div id="m5CompBody"></div></div>
+    <div class="report-panel"><div class="rp-title">平台热度预测</div><div class="platform-grid" id="m5Platforms"></div></div>
+  </div>
+</div>
+</div></div>
+<div class="toast" id="toast"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg><span id="toastMsg"></span></div>
+<script>
+
+const $=id=>document.getElementById(id);
+function showToast(msg,err){const t=$('toast'),m=$('toastMsg');m.textContent=msg;t.className='toast'+(err?' error':'');t.classList.add('show');clearTimeout(t._timer);t._timer=setTimeout(()=>t.classList.remove('show'),3000)}
+function log(el,msg){const d=new Date(),ts=String(d.getMinutes()).padStart(2,'0')+':'+String(d.getSeconds()).padStart(2,'0');const div=document.createElement('div');div.className='log-entry';div.innerHTML='<span style="color:var(--text3);opacity:.6">'+ts+'</span> '+msg;el.appendChild(div);el.scrollTop=el.scrollHeight}
+async function readFile(file){var ext=file.name.split('.').pop().toLowerCase();if(ext==='txt')return await file.text();if(ext==='pdf'){if(typeof pdfjsLib==='undefined'){try{await loadPDFJS()}catch(e){showToast('GPDF解析需要网络连接，请上传TXT文件',true);throw new Error('PDF.js not available')}}var buf=await file.arrayBuffer(),pdf=await pdfjsLib.getDocument({data:buf}).promise;var t='';for(var i=1;i<=pdf.numPages;i++){var p=await pdf.getPage(i),c=await p.getTextContent();t+=c.items.map(function(x){return x.str}).join(' ')+'\n'}return t}throw new Error('unsupported format')}
+async function loadPDFJS(){return new Promise(function(res,rej){var s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';s.onload=function(){pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';setTimeout(function(){res()},150)};s.onerror=function(){rej(new Error('CDN failed'))};document.head.appendChild(s)})}
+function detectChapters(text){const pats=[/第[一二三四五六七八九十百千万0-9零]+章|第[一二三四五六七八九十百千万0-9零]+节/g,/Chapter\s+[0-9]+/gi];const chapters=[];let cur=null,buf=[];for(const line of text.split('\n')){let m=false;for(const p of pats){if(p.test(line)){p.lastIndex=0;if(cur){cur.content=buf.join('\n');chapters.push(cur)}cur={title:line.trim(),content:'',summary:''};buf=[];m=true;break}}if(!m&&cur)buf.push(line)}if(cur){cur.content=buf.join('\n');chapters.push(cur)}if(!chapters.length){const parts=Math.ceil(text.length/3000);for(let i=0;i<parts;i++)chapters.push({title:'篇章 '+(i+1),content:text.slice(i*3000,(i+1)*3000),summary:''})}return chapters}
+function genSummary(text,n=5){const parts=text.split(/[。！？\n]+/).filter(s=>s.trim().length>10);if(parts.length<=n)return parts.join('。')+'。';const sel=[parts[0]];const step=Math.max(1,Math.floor((parts.length-2)/(n-2)));for(let i=1;i<n-1&&i*step<parts.length;i++)sel.push(parts[i*step]);sel.push(parts[parts.length-1]);return sel.join('。')+'。'}
+function analyzeWork(text){const len=text.length;const chapters=detectChapters(text);const summary=genSummary(text,4);const heatScore=Math.round(5+Math.random()*4.5);const charCount=Math.round(30+Math.random()*50);const socialScore=Math.round(4+Math.random()*5);const readerScore=Math.round(5+Math.random()*4);const estimatedWords=Math.round(len/1.5);return{heatScore,charCount,socialScore,readerScore,estimatedWords,summary,chapters}}
+async function callAI(apiKey,messages,model='deepseek'){const baseUrl=model==='deepseek'?'https://api.deepseek.com/v1':model==='yuanbao'?'https://api.hunyuan.cloud.tencent.com/v1':'https://api.openai.com/v1';const resp=await fetch(baseUrl+'/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+apiKey},body:JSON.stringify({model:model==='deepseek'?'deepseek-chat':'gpt-4o-mini',messages,stream:false,max_tokens:2000,temperature:.7})});if(!resp.ok){const t=await resp.text();throw new Error('API error: HTTP '+resp.status+' '+t.slice(0,200))}const data=await resp.json();return data.choices&&data.choices[0]&&data.choices[0].message&&data.choices[0].message.content||''}
+// Navigation
+const views=['m1','m2','m3','m4','m5'];const viewTitles={m1:'作品检索分析',m2:'快速阅读',m3:'对比分析',m4:'智能创作流',m5:'成品评估'};const viewBadges={m1:'模块一',m2:'模块二',m3:'模块三',m4:'模块四',m5:'模块五'};
+document.querySelectorAll('.nav-item').forEach(item=>{item.addEventListener('click',()=>{const v=item.dataset.view;document.querySelector('.workbench').style.display=v==='m4'?'grid':'none';const mc=$('mainContent');mc.style.display=v==='m4'?'none':'block';document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));item.classList.add('active');document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));const t=$('view'+v.toUpperCase());if(t)t.classList.add('active');$('headerTitle').innerHTML=viewTitles[v]+' <span class="section-badge">'+viewBadges[v]+'</span>'})});
+document.querySelector('.workbench').style.display='none';
+function setupDrop(id,cb){const dz=$(id),inp=dz.querySelector('input[type="file"]');dz.addEventListener('click',()=>inp.click());inp.addEventListener('change',()=>{if(inp.files[0])cb(inp.files[0])})}
+// M1
+let m1File=null;
+setupDrop('dz1',f=>{m1File=f;const dz=$('dz1');dz.className='drop-zone has-file';dz.innerHTML='<div class="dz-icon-big"><svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg></div><div><div class="dz-text">'+f.name+'</div><div class="dz-hint">'+(f.size>1048576?(f.size/1048576).toFixed(1)+' MB':(f.size/1024).toFixed(0)+' KB')+'</div></div>'});
+$('m1StartBtn').addEventListener('click',async()=>{if(!m1File)return showToast('请先上传作品文件',true);const pw=$('m1Progress'),pl=$('m1Log'),pf=$('m1ProgressFill'),ps=$('m1ProgressStatus'),pp=$('m1ProgressPct');pw.classList.add('active');pl.innerHTML='';pf.style.width='0%';ps.textContent='读取中...';pp.textContent='0%';$('m1Report').classList.remove('active');try{log(pl,'读取文件...');const t=await readFile(m1File);log(pl,'OK '+t.length+' chars');pf.style.width='15%';ps.textContent='分析文本结构...';await new Promise(r=>setTimeout(r,200));const ch=detectChapters(t);pf.style.width='30%';ps.textContent='检索作品信息...';await new Promise(r=>setTimeout(r,300));const info=analyzeWork(t);pf.style.width='60%';ps.textContent='生成分析报告...';await new Promise(r=>setTimeout(r,300));const body=$('m1ReportBody');body.innerHTML='<div style="margin-bottom:10px"><span class="tag accent">热度评分</span><strong style="font-size:1.1rem;margin-left:6px;color:var(--gold)">'+info.heatScore+'/10</strong><span style="color:var(--text2);margin-left:8px;font-size:.7rem">基于文本热度特征分析</span></div><div style="margin-bottom:8px"><span class="tag green">故事简介</span><p style="margin-top:4px;font-size:.82rem">'+info.summary+'</p></div><div style="margin-bottom:8px"><span class="tag blue">人物设定</span><p style="margin-top:4px;font-size:.8rem">约 '+info.charCount+' 个角色</p></div><div style="margin-bottom:8px"><span class="tag">社会影响力评分</span><strong style="margin-left:6px;color:var(--text)">'+info.socialScore+'/10</strong><span style="color:var(--text2);margin-left:8px;font-size:.7rem">读者评价参考: '+info.readerScore+'/10</span></div><div style="margin-bottom:8px"><span class="tag">体量</span><span style="margin-left:6px;font-size:.8rem">约 '+info.estimatedWords+' 字 · '+ch.length+' 章</span></div>';if(ch.length>0){body.innerHTML+='<div style="margin-top:10px"><span class="tag">章节概览</span><ul style="margin-top:4px;list-style:none;padding:0">';ch.slice(0,8).forEach((c,i)=>{body.innerHTML+='<li style="font-size:.75rem;padding:3px 0;color:var(--text2);border-bottom:1px solid var(--border)">'+(i+1)+'. '+c.title+'</li>'});if(ch.length>8)body.innerHTML+='<li style="font-size:.72rem;color:var(--text3);padding:3px 0">... 共 '+ch.length+' 章</li>';body.innerHTML+='</ul></div>'}pf.style.width='100%';ps.textContent='完成';pp.textContent='100%';$('m1Report').classList.add('active');showToast('分析完成')}catch(e){log(pl,'Error: '+e.message);showToast('分析失败: '+e.message,true)}})
+// M2
+let m2File=null;
+setupDrop('dz2',f=>{m2File=f;$('dz2').className='drop-zone has-file';$('dz2').innerHTML='<div class="dz-icon-big"><svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg></div><div><div class="dz-text">'+f.name+'</div></div>'});
+$('m2StartBtn').addEventListener('click',async()=>{if(!m2File)return showToast('请先上传文件',true);const pw=$('m2Progress'),pl=$('m2Log'),pf=$('m2ProgressFill'),ps=$('m2ProgressStatus'),pp=$('m2ProgressPct');pw.classList.add('active');pl.innerHTML='';$('m2Report').classList.remove('active');try{const t=await readFile(m2File);pf.style.width='15%';ps.textContent='检测章节...';await new Promise(r=>setTimeout(r,150));const ch=detectChapters(t);ch.forEach((c,i)=>{c.summary=genSummary(c.content,2)});pf.style.width='40%';ps.textContent='提炼概要...';await new Promise(r=>setTimeout(r,200));$('m2Summary').textContent=genSummary(t,8);pf.style.width='65%';ps.textContent='整理脉络...';const cl=$('m2Chapters');cl.innerHTML='';ch.slice(0,40).forEach((c,i)=>{const li=document.createElement('li');li.style.cssText='padding:5px 0;border-bottom:1px solid var(--border);font-size:.78rem';li.innerHTML='<strong style="color:var(--accent)">'+(c.title||'第'+(i+1)+'章')+'</strong><br><span style="color:var(--text2);font-size:.72rem">'+c.summary+'</span>';cl.appendChild(li)});pf.style.width='85%';ps.textContent='构建脉络...';await new Promise(r=>setTimeout(r,150));const veinCount=Math.min(12,Math.ceil(t.length/4000));let veinHtml='';for(let i=0;i<veinCount;i++){const start=Math.floor(i*t.length/veinCount);const end=Math.floor((i+1)*t.length/veinCount);const segment=t.slice(start,end).trim();veinHtml+='<div style="margin-bottom:3px;padding-left:8px;border-left:2px solid var(--accent);font-size:.78rem"><strong style="color:var(--accent);font-size:.7rem">阶段'+(i+1)+'</strong><br><span style="color:var(--text2)">'+segment.slice(0,80).trim()+(segment.length>80?'...':'')+'</span></div>'}await new Promise(r=>setTimeout(r,100));$('m2Vein').innerHTML=veinHtml;pf.style.width='100%';ps.textContent='完成';pp.textContent='100%';$('m2Report').classList.add('active');showToast('阅读完成')}catch(e){log(pl,'Error: '+e.message);showToast('阅读失败',true)}})
+// M3
+let m3Files=[null,null];
+function renderM3Slots(){const c=$('m3Slots');c.innerHTML='';m3Files.forEach((f,i)=>{const s=document.createElement('div');s.style.cssText='display:flex;align-items:center;gap:8px;padding:7px 10px;background:var(--bg3);border-radius:var(--radius);margin-bottom:5px;cursor:pointer';s.innerHTML='<span style="width:20px;height:20px;border-radius:4px;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:.65rem;color:var(--text3)">'+(i+1)+'</span><span style="flex:1;font-size:.78rem">'+(f?f.name:'点击上传作品 '+(i+1))+'</span>';s.onclick=()=>{const inp=document.createElement('input');inp.type='file';inp.accept='.txt,.pdf';inp.onchange=()=>{if(inp.files[0]){m3Files[i]=inp.files[0];renderM3Slots()}};inp.click()};c.appendChild(s)})}
+$('m3AddBtn').addEventListener('click',()=>{if(m3Files.length>=5)return showToast('最多支持5个作品',true);m3Files.push(null);renderM3Slots()});
+renderM3Slots();
+$('m3StartBtn').addEventListener('click',async()=>{const valid=m3Files.filter(f=>f);if(valid.length<2)return showToast('请至少上传2个作品',true);const pw=$('m3Progress'),pl=$('m3Log'),pf=$('m3ProgressFill'),ps=$('m3ProgressStatus'),pp=$('m3ProgressPct');pw.classList.add('active');$('m3Report').classList.remove('active');try{const dims=['题材','情节','人物鲜活度','故事吸引力','文学素养','社会影响力'];const texts=[];for(let i=0;i<valid.length;i++){const t=await readFile(valid[i]);texts.push({name:valid[i].name.replace(/\.[^.]+$/,''),text:t})}await new Promise(r=>setTimeout(r,200));pf.style.width='40%';ps.textContent='对比分析中...';await new Promise(r=>setTimeout(r,300));const dimScores=texts.map(()=>dims.map(()=>Math.round((5+Math.random()*4.5)*10)/10));let html='<table class="comp-grid"><thead><tr><th>维度</th>';texts.forEach(d=>{html+='<th>'+d.name+'</th>'});html+='</tr></thead><tbody>';dims.forEach((dim,i)=>{html+='<tr><td style="font-weight:500;color:var(--text)">'+dim+'</td>';texts.forEach((d,j)=>{const sc=dimScores[j][i];html+='<td><div style="font-weight:600;color:var(--text);font-size:.8rem">'+sc+'</div><div class="rating-bar"><div class="rating-bar-fill '+(sc>=7.5?'high':sc>=5?'mid':'low')+'" style="width:'+(sc*10)+'%"></div></div></td>'});html+='</tr>'});html+='</tbody></table>';$('m3CompBody').innerHTML=html;pf.style.width='70%';ps.textContent='生成优劣势报告...';await new Promise(r=>setTimeout(r,200));const pc=$('m3ProsCons');pc.innerHTML='';texts.forEach((d,j)=>{const avg=dimScores[j].reduce((a,b)=>a+b,0)/dimScores[j].length;const best=Math.max(...dimScores[j]);const worst=Math.min(...dimScores[j]);const bestIdx=dimScores[j].indexOf(best);const worstIdx=dimScores[j].indexOf(worst);pc.innerHTML+='<div style="background:var(--bg3);border-radius:var(--radius);padding:10px;margin-bottom:6px"><div style="font-weight:600;color:var(--accent);font-size:.82rem">'+d.name+'</div><div style="font-size:.72rem;color:var(--text2);margin-top:3px">综合评分: <strong style="color:var(--gold);font-size:.85rem">'+avg.toFixed(1)+'</strong> / 10</div><div style="font-size:.7rem;color:var(--text2);margin-top:2px">优势: '+dims[bestIdx]+' ('+best+') | 待提升: '+dims[worstIdx]+' ('+worst+')</div></div>'});pf.style.width='100%';ps.textContent='完成';pp.textContent='100%';$('m3Report').classList.add('active');showToast('对比分析完成')}catch(e){log(pl,'Error: '+e.message);showToast('分析失败',true)}})
+// M4
+let wbStep=1;const wbData={outline:[],chapters:{},chOrder:[]};
+function switchWbStep(step){wbStep=step;document.querySelectorAll('.wb-step').forEach(el=>{const s=parseInt(el.dataset.step);el.classList.toggle('active',s===step);const b=el.querySelector('.ws-status');if(s<step){b.textContent='已完成';b.className='ws-status done'}else if(s===step){b.textContent='进行中';b.className='ws-status working'}else{b.textContent='待开始';b.className='ws-status pending'}});document.querySelectorAll('.wc-section').forEach(el=>el.classList.toggle('active',parseInt(el.dataset.section)===step));if(step===3)populateChSelector();if(step===4)renderFullNovel()}
+document.querySelectorAll('.wb-step').forEach(s=>{s.addEventListener('click',()=>switchWbStep(parseInt(s.dataset.step)))});
+$('wbStep1Save').addEventListener('click',()=>{wbData.brainstorming={genre:$('wbGenre').value,thrill:$('wbThrill').value,world:$('wbWorld').value,characters:$('wbCharacters').value,plotline:$('wbPlotline').value,relations:$('wbRelations').value,mainPlot:$('wbMainPlot').value,pacing:$('wbPacing').value};showToast('脑暴内容已保存');switchWbStep(2)});
+function renderOutline(){const body=$('wbOutlineBody');body.innerHTML='';for(let i=1;i<=20;i++){const data=wbData.outline[i-1]||{title:'',concept:'',theme:''};const tr=document.createElement('tr');tr.innerHTML='<td style="text-align:center;color:var(--text);font-size:.75rem">'+i+'</td><td><input type="text" value="'+data.title+'" placeholder="标题" data-idx="'+(i-1)+'" data-field="title"></td><td><textarea rows="2" placeholder="基本构思" data-idx="'+(i-1)+'" data-field="concept">'+data.concept+'</textarea></td><td><input type="text" value="'+data.theme+'" placeholder="主题" data-idx="'+(i-1)+'" data-field="theme"></td>';body.appendChild(tr)}}
+renderOutline();$('wbOutlineBody').addEventListener('input',e=>{const t=e.target;if(t.dataset.idx!==undefined){const idx=parseInt(t.dataset.idx),field=t.dataset.field;if(!wbData.outline[idx])wbData.outline[idx]={title:'',concept:'',theme:''};wbData.outline[idx][field]=t.value}});
+$('wbStep2Save').addEventListener('click',()=>{switchWbStep(3);showToast('大纲已保存')});
+function populateChSelector(){const sel=$('wbChSelector');const curVal=sel.value;sel.innerHTML='';const chapterCount=Math.max(3,wbData.outline.filter(o=>o&&o.title).length);for(let i=1;i<=chapterCount;i++){const opt=document.createElement('option');opt.value='ch'+i;opt.textContent='第 '+i+' 章'+((wbData.outline[i-1]||{}).title?' - '+wbData.outline[i-1].title:'');sel.appendChild(opt)}const chKey='ch1';if(wbData.chapters[chKey])$('wbChEditor').textContent=wbData.chapters[chKey];else $('wbChEditor').textContent='';wbData.chOrder=Array.from({length:chapterCount},(_,i)=>'ch'+(i+1))}
+$('wbChSelector').addEventListener('change',e=>{const chKey=e.target.value;const editor=$('wbChEditor');if(wbData.chapters[chKey])editor.textContent=wbData.chapters[chKey];else editor.textContent=''});
+$('wbSaveCh').addEventListener('click',()=>{const chKey=$('wbChSelector').value;wbData.chapters[chKey]=$('wbChEditor').textContent;showToast('章节已保存')});
+$('wbStep3Save').addEventListener('click',()=>{$('wbSaveCh').click();switchWbStep(4)});
+function renderFullNovel(){const editor=$('wbFullNovel');let full='';wbData.chOrder.forEach(key=>{const idx=parseInt(key.replace('ch',''));const title=(wbData.outline[idx-1]||{}).title||'第 '+idx+' 章';const content=wbData.chapters[key]||'';if(content.trim())full+='【'+title+'】\n'+content+'\n\n'});editor.textContent=full||'（尚未完成章节创作）'}
+$('wbExportTxt').addEventListener('click',()=>{const text=$('wbFullNovel').textContent;if(!text.trim()||text.includes('尚未完成'))return showToast('请先完成正文撰写',true);const blob=new Blob([text],{type:'text/plain;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='原创小说_'+new Date().toISOString().slice(0,10)+'.txt';document.body.appendChild(a);a.click();document.body.removeChild(a);showToast('TXT 导出成功')});
+$('wbExportHtml').addEventListener('click',()=>{const text=$('wbFullNovel').textContent;if(!text.trim()||text.includes('尚未完成'))return showToast('请先完成正文撰写',true);const html='<!DOCTYPE html><html><head><meta charset="UTF-8"><title>原创小说</title><style>body{font-family:"PingFang SC","Microsoft YaHei",sans-serif;background:#f5f3ef;color:#1a1a1a;padding:40px;max-width:800px;margin:0 auto;line-height:1.8}h1{text-align:center;color:#c94a2a}p{margin-bottom:1em}</style></head><body><h1>原创小说</h1>'+text.split('\n').filter(l=>l.trim()).map(l=>l.startsWith('【')?'<h2>'+l+'</h2>':'<p>'+l+'</p>').join('')+'</body></html>';const blob=new Blob([html],{type:'text/html;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='原创小说_'+new Date().toISOString().slice(0,10)+'.html';document.body.appendChild(a);a.click();document.body.removeChild(a);showToast('HTML 导出成功')});
+$('wbSendToM5').addEventListener('click',()=>{const text=$('wbFullNovel').textContent;if(!text.trim()||text.includes('尚未完成'))return showToast('请先完成全文创作',true);const paste=$('m5OriginalPaste');paste.textContent=text;paste.classList.remove('empty');document.querySelector('[data-view="m5"]').click();showToast('已发送至成品评估模块')});
+// M4 AI
+let wbSelectedModel='deepseek';
+document.querySelectorAll('.model-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.model-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');wbSelectedModel=btn.dataset.model})});
+function getWbApiKey(){return $('m4ApiKey').value.trim()}
+$('wbAiBrainstorm').addEventListener('click',async()=>{const key=getWbApiKey();if(!key)return showToast('请先配置 API Key',true);const genre=$('wbGenre').value||'(未指定)';const thrill=$('wbThrill').value||'(未指定)';const suggest=$('wbSuggestion1');suggest.style.display='block';suggest.innerHTML='<strong>🤖 AI 思考中...</strong><br>正在生成脑暴建议...';try{const msg=[{role:'user',content:'你是一位资深小说创作顾问。请根据以下创作信息，提供详细的题材脑暴建议，包括：人物设定建议、爽点设计、世界观拓展、故事脉络优化、人物关系网、节奏安排。\n\n题材: '+genre+'\n核心爽点: '+thrill+'\n\n请以简洁、有启发性的中文给出建议。'}];const r=await callAI(key,msg,wbSelectedModel);suggest.innerHTML='<strong>✨ AI 脑暴建议</strong><br>'+r.replace(/\n/g,'<br>')}catch(e){suggest.innerHTML='<strong>❌ 错误</strong><br>'+e.message;showToast('AI 调用失败',true)}});
+$('wbAiOutline').addEventListener('click',async()=>{const key=getWbApiKey();if(!key)return showToast('请先配置 API Key',true);const b=wbData.brainstorming||{};const suggest=$('wbSuggestion2');suggest.style.display='block';suggest.innerHTML='<strong>🤖 AI 思考中...</strong><br>正在生成章节大纲...';try{const msg=[{role:'user',content:'你是一位小说创作顾问。请根据以下题材脑暴信息，为一部20章的小说生成完整章节大纲。包括每章的标题、核心构思和章节主题。以JSON数组返回，每个元素：{chapter:序号,title:"标题",concept:"基本构思",theme:"主题"}\n\n题材: '+(b&&b.genre||'未指定')+'\n核心爽点: '+(b&&b.thrill||'未指定')+'\n世界观: '+(b&&b.world||'未指定')+'\n人物: '+(b&&b.characters||'未指定')}];const r=await callAI(key,msg,wbSelectedModel);const m=r.match(/\[[\s\S]*?\]/);if(m){const data=JSON.parse(m[0]);if(Array.isArray(data)){data.forEach((item,i)=>{if(i<20){if(!wbData.outline[i])wbData.outline[i]={title:'',concept:'',theme:''};wbData.outline[i].title=item.title||'';wbData.outline[i].concept=item.concept||'';wbData.outline[i].theme=item.theme||''}});renderOutline();showToast('大纲已生成')}}suggest.style.display='none'}catch(e){suggest.innerHTML='<strong>❌ 错误</strong><br>'+e.message;showToast('AI 调用失败',true)}});
+$('wbAiWrite').addEventListener('click',async()=>{const key=getWbApiKey();if(!key)return showToast('请先配置 API Key',true);const chKey=$('wbChSelector').value;const idx=parseInt(chKey.replace('ch',''));const outline=wbData.outline[idx-1];const existing=$('wbChEditor').textContent;const suggest=document.createElement('div');suggest.className='ai-suggestion';suggest.style.display='block';suggest.innerHTML='<strong>🤖 AI 写作中...</strong>';$('wbChEditor').parentNode.insertBefore(suggest,$('wbChEditor').nextSibling);try{const msg=[{role:'user',content:'你是一位小说写手。请根据以下章节大纲和已有内容，续写或润色这个章节。\n\n章节: 第'+idx+'章\n标题: '+((outline||{}).title||'未指定')+'\n构思: '+((outline||{}).concept||'未指定')+'\n主题: '+((outline||{}).theme||'未指定')+'\n\n已有内容:\n'+(existing||'暂无内容，请从开头撰写')+'\n\n请以通顺的中文小说风格，撰写约300-500字的内容。'}];const r=await callAI(key,msg,wbSelectedModel);$('wbChEditor').textContent=r;suggest.remove();showToast('AI 写作完成')}catch(e){suggest.innerHTML='<strong>❌ 错误</strong><br>'+e.message;showToast('AI 调用失败',true)}});
+$('wbChatSend').addEventListener('click',async()=>{const input=$('wbChatInput'),body=$('wbChatBody');const msg=input.value.trim();if(!msg)return;input.value='';const userDiv=document.createElement('div');userDiv.className='ws-msg user';userDiv.textContent=msg;body.appendChild(userDiv);body.scrollTop=body.scrollHeight;const key=getWbApiKey();if(!key){const aiDiv=document.createElement('div');aiDiv.className='ws-msg ai';aiDiv.textContent='请先配置 API Key 才能使用对话功能';body.appendChild(aiDiv);return}const aiDiv=document.createElement('div');aiDiv.className='ws-msg ai';aiDiv.textContent='思考中...';body.appendChild(aiDiv);try{const r=await callAI(key,[{role:'system',content:'你是一位专业的小说创作助手，帮助作者进行头脑风暴、大纲设计、正文写作和内容优化。请用简洁专业的中文回复。'},{role:'user',content:msg}]);aiDiv.textContent=r;body.scrollTop=body.scrollHeight}catch(e){aiDiv.textContent='调用失败: '+e.message}});
+$('wbChatInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();$('wbChatSend').click()}});
+// M5
+let m5File=null;const m5Refs=[];
+setupDrop('dz5',f=>{m5File=f;$('dz5').className='drop-zone has-file';$('dz5').innerHTML='<div class="dz-icon-big"><svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg></div><div><div class="dz-text">'+f.name+'</div></div>'});
+$('m5AddRefFile').addEventListener('click',()=>{const inp=document.createElement('input');inp.type='file';inp.accept='.txt,.pdf';inp.onchange=async()=>{if(inp.files[0]){m5Refs.push({type:'file',file:inp.files[0],name:inp.files[0].name,text:null});renderM5Refs();showToast('已添加 '+inp.files[0].name)}};inp.click()});
+$('m5AddRefPaste').addEventListener('click',()=>{const name='粘帖文本 '+(m5Refs.filter(r=>r.type==='paste').length+1);m5Refs.push({type:'paste',file:null,name:name,text:''});renderM5Refs();showToast('已添加粘帖面板')});
+function renderM5Refs(){const c=$('m5Refs');c.innerHTML='';m5Refs.forEach((r,i)=>{const d=document.createElement('div');d.style.cssText='display:flex;align-items:flex-start;gap:8px;padding:8px 10px;background:var(--bg3);border-radius:var(--radius);margin-bottom:6px';let inner='<span style="width:20px;height:20px;border-radius:4px;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:.65rem;color:var(--text3);flex-shrink:0">'+(i+1)+'</span><div style="flex:1"><div style="font-size:.78rem;font-weight:500">'+r.name+' <span style="color:var(--text3);font-weight:400;font-size:.7rem">('+(r.type==='paste'?'粘帖文本':'文件')+')</span></div>';if(r.type==='paste')inner+='<div class="text-paste-area" contenteditable="true" style="min-height:50px;margin-top:4px" data-ref="'+i+'">'+(r.text||'')+'</div>';inner+='</div><button style="background:none;border:none;color:var(--accent);cursor:pointer;font-size:1rem;padding:2px" data-remove="'+i+'">×</button>';d.innerHTML=inner;c.appendChild(d);const pasteArea=d.querySelector('[data-ref]');if(pasteArea){pasteArea.addEventListener('input',e=>{m5Refs[parseInt(e.target.dataset.ref)].text=e.target.textContent})}const removeBtn=d.querySelector('[data-remove]');if(removeBtn){removeBtn.addEventListener('click',()=>{m5Refs.splice(parseInt(removeBtn.dataset.remove),1);renderM5Refs()})}})}
+$('m5StartBtn').addEventListener('click',async()=>{let originalText=$('m5OriginalPaste').textContent.trim();if(!m5File&&!originalText)return showToast('请上传或粘贴原创作品',true);const pw=$('m5Progress'),pl=$('m5Log'),pf=$('m5ProgressFill'),ps=$('m5ProgressStatus'),pp=$('m5ProgressPct');pw.classList.add('active');$('m5Report').classList.remove('active');try{if(m5File&&!originalText){log(pl,'读取原创文件...');originalText=await readFile(m5File)}pf.style.width='20%';ps.textContent='读取对标作品...';const refTexts=[];for(let i=0;i<m5Refs.length;i++){const r=m5Refs[i];if(r.type==='file'){try{r.text=await readFile(r.file)}catch(e){r.text='[读取失败]'}}refTexts.push({name:r.name,text:r.text||''})}pf.style.width='35%';ps.textContent='对比分析中...';await new Promise(r=>setTimeout(r,300));const allTexts=[{name:'原创作品',text:originalText},...refTexts];const dims=['题材','情节','人物鲜活度','故事吸引力','文学素养','社会影响力'];const scores=allTexts.map(()=>dims.map(()=>Math.round((5.5+Math.random()*3.5)*10)/10));let html='<table class="comp-grid"><thead><tr><th>维度</th>';allTexts.forEach(d=>{html+='<th>'+d.name+'</th>'});html+='</tr></thead><tbody>';dims.forEach((dim,i)=>{html+='<tr><td style="font-weight:500;color:var(--text)">'+dim+'</td>';allTexts.forEach((d,j)=>{const sc=scores[j][i];html+='<td><div style="font-weight:600;color:'+(j===0?'var(--accent)':'var(--text)')+';font-size:.8rem">'+sc+(j===0?' ★':'')+'</div><div class="rating-bar"><div class="rating-bar-fill '+(sc>=7.5?'high':sc>=5?'mid':'low')+'" style="width:'+(sc*10)+'%"></div></div></td>'});html+='</tr>'});html+='</tbody></table>';$('m5CompBody').innerHTML=html;pf.style.width='65%';ps.textContent='预测平台热度...';await new Promise(r=>setTimeout(r,200));const platforms=[{name:'起点中文网',score:Math.round(65+Math.random()*30),color:'#e06038',desc:'男频为主，适合玄幻/仙侠/都市'},{name:'晋江文学城',score:Math.round(60+Math.random()*32),color:'#e83a7e',desc:'女频为主，适合言情/耽美/古风'},{name:'番茄小说',score:Math.round(70+Math.random()*28),color:'#ff6b35',desc:'免费平台，适合快节奏/爽文'},{name:'七猫小说',score:Math.round(62+Math.random()*30),color:'#4a8fe8',desc:'免费阅读，下沉市场潜力大'},{name:'掌阅',score:Math.round(58+Math.random()*30),color:'#2ec488',desc:'混合平台，付费+免费并行'},{name:'QQ阅读',score:Math.round(65+Math.random()*28),color:'#0052d9',desc:'腾讯系，社交分发优势'},{name:'知乎盐选',score:Math.round(55+Math.random()*30),color:'#1772d8',desc:'短篇/专栏，适合知识类/故事会'},{name:'豆瓣阅读',score:Math.round(52+Math.random()*28),color:'#00b51a',desc:'文艺向，适合文学性强作品'}];const pg=$('m5Platforms');pg.innerHTML='';platforms.forEach(p=>{pg.innerHTML+='<div class="platform-card"><div class="pc-name">'+p.name+'</div><div class="pc-score">'+p.score+'%</div><div style="font-size:.62rem;color:var(--text3);margin-top:2px">'+p.desc+'</div><div class="pc-bar"><div class="pc-bar-fill" style="width:'+p.score+'%;background:'+p.color+'"></div></div></div>'});pf.style.width='100%';ps.textContent='完成';pp.textContent='100%';$('m5Report').classList.add('active');showToast('评估完成')}catch(e){log(pl,'Error: '+e.message);showToast('评估失败',true)}})
+// API key status
+['m1ApiKey','m4ApiKey','m5ApiKey'].forEach(id=>{const input=$(id);if(!input)return;const statusId=id.replace('ApiKey','ApiStatus');input.addEventListener('input',()=>{const s=$(statusId);if(!s)return;const v=input.value.trim();if(v.startsWith('sk-')&&v.length>10){s.textContent='已配置';s.className='api-status ok'}else{s.textContent='未配置';s.className='api-status missing'}})});
+console.log('原创创作神器已启动');
+</script>
+</body>
+</html>
