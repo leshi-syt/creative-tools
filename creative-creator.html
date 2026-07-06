@@ -145,7 +145,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 </head>
 <body>
 <nav class="sidebar">
-  <div class="sidebar-brand"><h1>原创创作神器</h1><p>拆解·对比·创作·升华</p></div>
+  <div class="sidebar-brand"><h1>原创创作神器</h1><p>拆解·分析·创作·升华</p></div>
   <div class="sidebar-nav">
     <div class="nav-item active" data-view="m1">
       <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></span>
@@ -177,11 +177,11 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 <div class="view active" id="viewM1">
   <div class="card">
     <div class="card-title"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>优秀作品内容检索</div>
-    <div class="card-sub">上传 TXT/PDF 格式的对标作品，系统将智能分析其网络热度、故事简介、人物设定、读者评价及社会影响力，输出完整作品分析报告</div>
+    <div class="card-sub">上传 TXT/PDF 格式的各类文学人文作品（小说、自媒体文案、心理学、书籍等），系统将智能分析作品热度、内容概要、核心要素、读者评价及社会影响力，输出完整作品分析报告</div>
     <div class="drop-zone" id="dz1">
       <div class="dz-icon-big"><svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg></div>
       <div class="dz-text">点击上传作品文本</div>
-      <div class="dz-hint">支持 TXT / PDF 格式 · 用于分析对标作品</div>
+      <div class="dz-hint">支持 TXT / PDF 格式 · 适用于各类文学人文作品分析</div>
       <input class="dz-input" id="dz1Input" type="file" accept=".txt,.pdf">
     </div>
     <div class="api-config-wrap" style="margin-top:8px">
@@ -206,7 +206,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 <div class="view" id="viewM2">
   <div class="card">
     <div class="card-title"><svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9H9V9h10v2zm-4 4H9v-2h6v2zm4-8H9V5h10v2z"/></svg>对标作品快速阅读</div>
-    <div class="card-sub">上传 TXT/PDF 作品，系统将以读者视角快速提炼全本内容概要，以「全本总结 — 分章节概要 — 全本内容脉络」三级结构输出</div>
+    <div class="card-sub">上传 TXT/PDF 格式的各类作品，系统将以读者视角快速提炼全文内容概要，以「全文总结 — 分章节/分部分概要 — 全文内容脉络」三级结构输出</div>
     <div class="drop-zone" id="dz2">
       <div class="dz-icon-big"><svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg></div>
       <div class="dz-text">点击上传作品文本</div>
@@ -230,7 +230,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 <div class="view" id="viewM3">
   <div class="card">
     <div class="card-title"><svg viewBox="0 0 24 24"><path d="M10 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h5v2h2V1h-2v2zm0 15H5l5-6v6zm9-15h-5v2h5v13l-5-6v9h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>多作品对比分析</div>
-    <div class="card-sub">同时上传 2-5 个对标作品，从题材、情节、人物鲜活度、故事吸引力、文学素养、社会影响力六个维度进行系统比对，输出每个作品的优劣势报告</div>
+    <div class="card-sub">同时上传 2-5 个作品进行系统比对，从题材、内容结构、表达质量、读者吸引力、文学素养、社会影响力六个维度进行分析，输出每个作品的优劣势报告</div>
     <div id="m3Slots" style="margin-bottom:8px"></div>
     <div class="action-bar">
       <button class="btn btn-sm" id="m3AddBtn"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>添加作品</button>
@@ -253,7 +253,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
     <div class="wb-steps">
       <div class="wb-step active" data-step="1">
         <div class="ws-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
-        <div class="ws-title">题材脑暴</div><div class="ws-desc">人物·爽点·世界观·情节</div><span class="ws-status working">进行中</span>
+        <div class="ws-title">题材脑暴</div><div class="ws-desc">题材·核心·世界观·脉络</div><span class="ws-status working">进行中</span>
       </div>
       <div class="wb-step" data-step="2">
         <div class="ws-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/></svg></div>
@@ -356,7 +356,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 <div class="view" id="viewM5">
   <div class="card">
     <div class="card-title"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>成品对比评估 &amp; 热度预测</div>
-    <div class="card-sub">将创作完成的原创作品与对标作品进行多维度对比分析，并预测在不同平台的发表热度表现</div>
+    <div class="card-sub">将原创作品与对标作品进行多维度对比分析，支持各类文学人文作品（包括小说、自媒体文案、心理学著作、书籍等），并预测在不同平台的发表热度表现</div>
   </div>
   <div class="card">
     <div class="card-title">上传原创作品</div>
@@ -371,7 +371,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
   </div>
   <div class="card">
     <div class="card-title">对标作品</div>
-    <div class="card-sub">支持上传文件或手动粘贴对标文本内容，帮助从多维度把握创作水准</div>
+    <div class="card-sub">支持上传文件或手动粘贴各类对标文本内容（小说、文案、书籍、文章等），帮助从多维度把握创作水准</div>
     <div class="action-bar" style="margin-bottom:8px">
       <button class="btn btn-sm" id="m5AddRefFile"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>上传对标文件</button>
       <button class="btn btn-sm" id="m5AddRefPaste"><svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"/></svg>粘贴对标文本</button>
@@ -405,10 +405,11 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 const $=id=>document.getElementById(id);
 function showToast(msg,err){const t=$('toast'),m=$('toastMsg');m.textContent=msg;t.className='toast'+(err?' error':'');t.classList.add('show');clearTimeout(t._timer);t._timer=setTimeout(()=>t.classList.remove('show'),3000)}
 function log(el,msg){const d=new Date(),ts=String(d.getMinutes()).padStart(2,'0')+':'+String(d.getSeconds()).padStart(2,'0');const div=document.createElement('div');div.className='log-entry';div.innerHTML='<span style="color:var(--text3);opacity:.6">'+ts+'</span> '+msg;el.appendChild(div);el.scrollTop=el.scrollHeight}
-async function readFile(file){var ext=file.name.split('.').pop().toLowerCase();if(ext==='txt')return await file.text();if(ext==='pdf'){if(typeof pdfjsLib==='undefined'){try{await loadPDFJS()}catch(e){showToast('GPDF解析需要网络连接，请上传TXT文件',true);throw new Error('PDF.js not available')}}var buf=await file.arrayBuffer(),pdf=await pdfjsLib.getDocument({data:buf}).promise;var t='';for(var i=1;i<=pdf.numPages;i++){var p=await pdf.getPage(i),c=await p.getTextContent();t+=c.items.map(function(x){return x.str}).join(' ')+'\n'}return t}throw new Error('unsupported format')}
+async function readFile(file){var ext=file.name.split('.').pop().toLowerCase();if(ext==='txt'){var buf2=await file.arrayBuffer();try{var text=new TextDecoder('utf-8',{fatal:true}).decode(buf2);return text}catch(e){try{var text2=new TextDecoder('gbk').decode(buf2);return text2}catch(e2){return await file.text()}}}if(ext==='pdf'){if(typeof pdfjsLib==='undefined'){try{await loadPDFJS()}catch(e){showToast('PDF解析需要网络连接，请上传TXT文件',true);throw new Error('PDF.js not available')}}var buf=await file.arrayBuffer(),pdf=await pdfjsLib.getDocument({data:buf}).promise;var t='';for(var i=1;i<=pdf.numPages;i++){var p=await pdf.getPage(i),c=await p.getTextContent();t+=c.items.map(function(x){return x.str}).join(' ')+'\n'}return t}throw new Error('unsupported format')}
 async function loadPDFJS(){return new Promise(function(res,rej){var s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';s.onload=function(){pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';setTimeout(function(){res()},150)};s.onerror=function(){rej(new Error('CDN failed'))};document.head.appendChild(s)})}
 function detectChapters(text){const pats=[/第[一二三四五六七八九十百千万0-9零]+章|第[一二三四五六七八九十百千万0-9零]+节/g,/Chapter\s+[0-9]+/gi];const chapters=[];let cur=null,buf=[];for(const line of text.split('\n')){let m=false;for(const p of pats){if(p.test(line)){p.lastIndex=0;if(cur){cur.content=buf.join('\n');chapters.push(cur)}cur={title:line.trim(),content:'',summary:''};buf=[];m=true;break}}if(!m&&cur)buf.push(line)}if(cur){cur.content=buf.join('\n');chapters.push(cur)}if(!chapters.length){const parts=Math.ceil(text.length/3000);for(let i=0;i<parts;i++)chapters.push({title:'篇章 '+(i+1),content:text.slice(i*3000,(i+1)*3000),summary:''})}return chapters}
-function genSummary(text,n=5){const parts=text.split(/[。！？\n]+/).filter(s=>s.trim().length>10);if(parts.length<=n)return parts.join('。')+'。';const sel=[parts[0]];const step=Math.max(1,Math.floor((parts.length-2)/(n-2)));for(let i=1;i<n-1&&i*step<parts.length;i++)sel.push(parts[i*step]);sel.push(parts[parts.length-1]);return sel.join('。')+'。'}
+function genSummary(text,n){if(!n)n=5;var parts=text.split(/[。！？\n]+/).filter(function(s){return s.trim().length>10});if(parts.length<=n)return parts.join('。')+'。';var sel=[parts[0]];var step=Math.max(1,Math.floor((parts.length-2)/(n-2)));for(var i=1;i<n-1&&i*step<parts.length;i++)sel.push(parts[i*step]);sel.push(parts[parts.length-1]);return sel.join('。')+'。'}
+function analyzeText(text){var totalChars=text.length;var sentences=text.split(/[。！？\n]+/).filter(function(s){return s.trim().length>2});var paras=text.split(/\n\n|\r\n/).filter(function(p){return p.trim().length>5});var chCount=paras.length;var avgSentLen=Math.round(sentences.length>0?totalChars/sentences.length:0);var estimatedWords=Math.round(totalChars/1.5);var readingTime=Math.ceil(estimatedWords/300);var topSentences=[];for(var i=0;i<sentences.length&&topSentences.length<5;i++){var s=sentences[i].trim();if(s.length>30&&s.length<200)topSentences.push(s)}var keyPhrases=[];var longWords=text.match(/[\u4e00-\u9fa5]{4,}/g);if(longWords){var freq={};longWords.forEach(function(w){freq[w]=(freq[w]||0)+1});var sorted=Object.keys(freq).sort(function(a,b){return freq[b]-freq[a]});keyPhrases=sorted.slice(0,8)}return{totalChars:totalChars,sentenceCount:sentences.length,paraCount:paras.length,estimatedWords:estimatedWords,readingTime:readingTime,avgSentLen:avgSentLen,topSentences:topSentences,keyPhrases:keyPhrases}}
 function analyzeWork(text){const len=text.length;const chapters=detectChapters(text);const summary=genSummary(text,4);const heatScore=Math.round(5+Math.random()*4.5);const charCount=Math.round(30+Math.random()*50);const socialScore=Math.round(4+Math.random()*5);const readerScore=Math.round(5+Math.random()*4);const estimatedWords=Math.round(len/1.5);return{heatScore,charCount,socialScore,readerScore,estimatedWords,summary,chapters}}
 async function callAI(apiKey,messages,model='deepseek'){const baseUrl=model==='deepseek'?'https://api.deepseek.com/v1':model==='yuanbao'?'https://api.hunyuan.cloud.tencent.com/v1':'https://api.openai.com/v1';const resp=await fetch(baseUrl+'/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+apiKey},body:JSON.stringify({model:model==='deepseek'?'deepseek-chat':'gpt-4o-mini',messages,stream:false,max_tokens:2000,temperature:.7})});if(!resp.ok){const t=await resp.text();throw new Error('API error: HTTP '+resp.status+' '+t.slice(0,200))}const data=await resp.json();return data.choices&&data.choices[0]&&data.choices[0].message&&data.choices[0].message.content||''}
 // Navigation

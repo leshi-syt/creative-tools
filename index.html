@@ -18,11 +18,11 @@ html{font-size:15px}body{font-family:var(--font);background:var(--bg);color:var(
 .section-title svg{width:18px;height:18px;fill:var(--accent);flex-shrink:0}
 .input-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:700px){.input-grid{grid-template-columns:1fr}}
 .drop-zone{position:relative;border:2px dashed var(--border);border-radius:var(--radius);padding:48px 24px;text-align:center;cursor:pointer;transition:all .25s;background:var(--bg3)}
-.drop-zone:hover{border-color:var(--accent);background:rgba(212,68,26,.06)}
+.drop-zone:hover,.drop-zone.has-file:hover{border-color:var(--accent);background:rgba(212,68,26,.06)}.drop-zone.has-file{cursor:pointer}
 .drop-zone.has-file{border-style:solid;border-color:var(--green);padding:20px 24px;display:flex;align-items:center;gap:16px;text-align:left}
 .dz-icon-big{width:48px;height:48px;margin:0 auto 12px;border-radius:50%;background:var(--bg4);display:flex;align-items:center;justify-content:center}
 .dz-icon-big svg{fill:var(--text2);width:24px;height:24px}.dz-text{font-weight:500}.dz-hint{font-size:.78rem;color:var(--text2);margin-top:6px}
-.dz-input{display:none}.url-input-wrap{display:flex;gap:8px}
+.dz-input{position:absolute;left:-9999px;opacity:0;width:1px;height:1px;overflow:hidden}.url-input-wrap{display:flex;gap:8px}
 .url-input-wrap input{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:10px 14px;color:var(--text);font-size:.9rem;outline:none}
 .url-input-wrap input:focus{border-color:var(--accent)}.url-input-wrap button{background:var(--bg4);border:1px solid var(--border);border-radius:var(--radius);padding:10px 18px;color:var(--text);cursor:pointer;white-space:nowrap}
 .url-note{font-size:.75rem;color:var(--text2);margin-top:8px;display:flex;align-items:center;gap:6px}
@@ -185,6 +185,24 @@ function setDropZoneFile(f){const ext=(function(p){return p?p.toLowerCase():''})
 function resetInput(){state.videoFile=null;state.videoUrl=null;state.videoLoaded=false;VP.pause();VP.src='';VPr.classList.remove('active');DZ.classList.remove('has-file');DIB.innerHTML='<svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg>';DT.textContent='点击上传视频文件';DH.innerHTML='点击选择视频文件 · 支持 MP4, MOV, AVI, MKV, WebM';FI.value='';UI.value=''}
 function loadURL(url){const vExts=['mp4','webm','mkv','mov','avi','wmv','flv','m4v','ogv','3gp','mpeg','ts'];const ext=(function(p){return p?p.toLowerCase():''})(url.split('?')[0].split('#')[0].split('.').pop());state.videoUrl=url;state.videoFile=null;DZ.classList.remove('has-file');DIB.innerHTML='<svg viewBox="0 0 24 24" style="fill:var(--text2);width:24px;height:24px"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>';DT.innerHTML='<span class="dz-name" style="color:var(--text2)">'+(ext&&vExts.indexOf(ext)>=0?'直链 '+ext.toUpperCase():'视频链接')+'</span>';DH.innerHTML='<span class="dz-meta">'+url.slice(0,60)+(url.length>60?'...':'')+'</span>';if(url.includes('.m3u8')){log('📺 HLS 流...');loadHLS(url);return}log('📺 加载视频...');loadVideo(url)}
 function loadHLS(u){var H=window.Hls;function fb(){log("/!\ 回往直连");VP.src=u;VP.load()}if(H&&H.isSupported()){var h=new H();h.loadSource(u);h.attachMedia(VP);h.on(H.Events.MANIFEST_PARSED,function(){log("HLS OK")});h.on(H.Events.ERROR,function(e,d){if(d.fatal){showToast("HLS失败",true);fb()}});VP.onloadedmetadata=function(){state.videoDuration=VP.duration;if(VP.duration>3*3600){showToast("超时限制",true);resetInput();return}state.videoLoaded=true;VPr.classList.add("active");VI.innerHTML="<span>时长: <strong>"+fmtTime(VP.duration)+"</strong></span><span>分辨率: <strong>"+VP.videoWidth+"x"+VP.videoHeight+"</strong></span><span>状态: <strong>已加载</strong></span>";log("HLS OK")};return}log("hls.js 动态加载");var s=document.createElement("script");s.src="https://cdn.jsdelivr.net/npm/hls.js@0.14.17/dist/hls.min.js";s.onload=function(){log("hls.js 加载成功");setTimeout(function(){loadHLS(u)},500)};s.onerror=function(){log("hls.js 加载失败");fb()};document.head.appendChild(s)};
+MG.addEventListener('click',function(e){var c=e.target.closest('.mode-card');if(!c)return;var m=parseInt(c.dataset.mode);state.mode=m;document.querySelectorAll('.mode-card').forEach(function(x){x.classList.remove('active')});c.classList.add('active');[MO1,MO2,MO3].forEach(function(el,i){el.classList.toggle('active',i+1===m)});if(m===2)checkKey()});
+SS.addEventListener('input',function(){SV.textContent=parseFloat(SS.value).toFixed(2)});
+AK.addEventListener('input',checkKey);
+DZ.addEventListener('click',function(){if(!DZ.classList.contains('has-file')){try{FI.click()}catch(e){FI.dispatchEvent(new MouseEvent('click',{bubbles:true,cancelable:true}))}}});
+FI.addEventListener('change',function(){if(FI.files&&FI.files[0])setDropZoneFile(FI.files[0])});
+UL.addEventListener('click',function(){var u=UI.value.trim();if(!u)return showToast('\u8bf7\u8f93\u5165\u89c6\u9891\u94fe\u63a5',true);loadURL(u)});
+UI.addEventListener('keydown',function(e){if(e.key==='Enter')UL.click()});
+SB.addEventListener('click',startAnalysis);
+RB.addEventListener('click',function(){if(state.analyzing){cancelFlag=true;SB.disabled=false;document.getElementById('progressWrap').classList.remove('active');document.getElementById('progressLog').innerHTML='';document.getElementById('progressFill').style.width='0%';document.getElementById('progressStatus').textContent='\u5df2\u53d6\u6d88';document.getElementById('progressPct').textContent='0%';document.getElementById('results').classList.remove('active');document.getElementById('frameGrid').innerHTML='';state.results=[];state.frameCache.clear();state.analyzing=false;showToast('\u5df2\u53d6\u6d88',true);return}resetInput();document.getElementById('progressWrap').classList.remove('active');document.getElementById('progressLog').innerHTML='';document.getElementById('progressFill').style.width='0%';document.getElementById('progressStatus').textContent='\u51c6\u5907\u4e2d...';document.getElementById('progressPct').textContent='0%';document.getElementById('results').classList.remove('active');document.getElementById('frameGrid').innerHTML='';state.results=[];state.frameCache.clear();showToast('\u5df2\u91cd\u7f6e')});
+MC.addEventListener('click',closeModal);
+MO.addEventListener('click',function(e){if(e.target===MO)closeModal()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal()});
+document.addEventListener('keydown',function(e){if((e.metaKey||e.ctrlKey)&&e.key==='Enter'&&!state.analyzing){e.preventDefault();startAnalysis()}});
+EJ.addEventListener('click',function(){exportData('json')});
+EH.addEventListener('click',function(){exportData('html')});
+log('\u0023\u0023 \u8bf7\u4e0a\u4f20\u6216\u8f93\u5165\u89c6\u9891\u94fe\u63a5\u5f00\u59cb\u62c9\u7247');
+log('\u0023\u0023 \u5feb\u6377\u952e: Cmd/Ctrl + Enter \u5f00\u59cb\u5206\u6790');
+
 </script>
 </body>
 </html>
